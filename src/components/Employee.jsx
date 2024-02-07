@@ -8,8 +8,7 @@ function EmpForm() {
     name: '',
     employeeId: '',
     city: '',
-    male: false,
-    female: false,
+    gender: '', // Change gender to a single value instead of separate male and female fields
   });
   const [errors, setErrors] = useState({
     name: '',
@@ -19,10 +18,10 @@ function EmpForm() {
   });
 
   const handleChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === 'male' || name === 'female' ? checked : value,
+      [name]: value,
     });
 
     setErrors({
@@ -43,7 +42,7 @@ function EmpForm() {
     if (!formData.city) {
       newErrors.city = 'Please select a city';
     }
-    if (!formData.male && !formData.female) {
+    if (!formData.gender) {
       newErrors.gender = 'Please select gender';
     }
     setErrors(newErrors);
@@ -55,8 +54,7 @@ function EmpForm() {
         name: '',
         employeeId: '',
         city: '',
-        male: false,
-        female: false,
+        gender: '',
       });
       navigate("/save"); 
     }
@@ -106,18 +104,20 @@ function EmpForm() {
         <div style={{ marginBottom: '20px', textAlign: 'left' }}>
           <label style={{ marginRight: '10px' }}>Gender*:</label>
           <input
-            type="checkbox"
-            checked={formData.male}
+            type="radio"
+            checked={formData.gender === 'male'}
             onChange={handleChange}
-            name="male"
+            value="male"
+            name="gender"
             style={{ marginRight: '5px' }}
           />
           <label style={{ marginRight: '15px' }}>Male</label>
           <input
-            type="checkbox"
-            checked={formData.female}
+            type="radio"
+            checked={formData.gender === 'female'}
             onChange={handleChange}
-            name="female"
+            value="female"
+            name="gender"
             style={{ marginRight: '5px' }}
           />
           <label>Female</label>

@@ -12,8 +12,7 @@ const SavedEmp = () => {
     name: '',
     employeeId: '',
     city: '',
-    male: false,
-    female: false,
+    gender: '', // Change to a single gender field
   });
 
   useEffect(() => {
@@ -24,10 +23,10 @@ const SavedEmp = () => {
   }, []);
 
   const handleInputChange = (event) => {
-    const { name, value, checked } = event.target;
+    const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: name === 'male' || name === 'female' ? checked : value,
+      [name]: value,
     });
   };
 
@@ -83,18 +82,20 @@ const SavedEmp = () => {
       <div>
         <label>Gender:</label>
         <input
-          type="checkbox"
-          checked={formData.male}
+          type="radio"
+          checked={formData.gender === 'male'}
           onChange={handleInputChange}
-          name="male"
+          value="male"
+          name="gender"
           disabled={!editMode}
         />
         <label>Male</label>
         <input
-          type="checkbox"
-          checked={formData.female}
+          type="radio"
+          checked={formData.gender === 'female'}
           onChange={handleInputChange}
-          name="female"
+          value="female"
+          name="gender"
           disabled={!editMode}
         />
         <label>Female</label>
@@ -103,8 +104,8 @@ const SavedEmp = () => {
         {!editMode && <button className='editbutton'onClick={handleEdit}>Edit</button>}
        
         {editMode ? (
-  <button className='savebutton' onClick={handleSave}>Save</button>
-) : null}
+          <button className='savebutton' onClick={handleSave}>Save</button>
+        ) : null}
       </div>
     </form>
   );
